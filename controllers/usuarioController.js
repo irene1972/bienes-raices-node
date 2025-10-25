@@ -1,5 +1,7 @@
 import {check,validationResult} from 'express-validator';
 import Usuario from '../models/Usuario.js';
+import { generarId } from '../helpers/tokens.js';
+import { emailRegistro } from '../helpers/emails.js';
 
 const formularioLogin=(req,res)=>{
     res.render('auth/login',{
@@ -9,7 +11,8 @@ const formularioLogin=(req,res)=>{
 
 const formularioRegistro=(req,res)=>{
     res.render('auth/registro',{
-        pagina:'Crear cuenta'
+        pagina:'Crear cuenta',
+        csrfToken:req.csrfToken()
     });
 }
 
@@ -32,6 +35,7 @@ const registrar=async(req,res)=>{
     if(!resultado.isEmpty()){
         return res.render('auth/registro',{
         pagina:'Crear Cuenta',
+        csrfToken:req.csrfToken(),
         errores: resultado.array(),
         usuario:{
             nombre:req.body.nombre,
@@ -45,6 +49,7 @@ const registrar=async(req,res)=>{
     if(existeUsuario){
         return res.render('auth/registro',{
         pagina:'Crear Cuenta',
+        csrfToken:req.csrfToken(),
         errores: [{msg:'El email ya está registrado'}],
         usuario:{
             nombre:req.body.nombre,
@@ -52,13 +57,56 @@ const registrar=async(req,res)=>{
         }
     });
     }
+    const {nombre,email,password}=req.body;
+    const usuario=await Usuario.create({
+        nombre,
+        email,
+        password,
+        token:generarId()
+    });
 
-    const usuario=await Usuario.create(req.body);
-    res.json(usuario);
+    //envío del email de confirmación
+    emailRegistro({
+        nombre,
+        email,
+        token:usuario.token
+    });
+
+    //mostrar mensaje de confirmación
+    res.render('templates/mensaje',{
+        pagina:'Cuenta Creada Correctamente',
+        mensaje:'Hemos enviado un Email de Confirmación, presiona en el enlace'
+    });
 }
+
+const confirmar=async(req,res)=>{
+    const token=req.params.token;
+    
+    //Verificar si el token es válido
+    const usuario=await Usuario.findOne({where:{token}});
+    if(!usuario){
+        return res.render('auth/confirmar-cuenta',{
+            pagina:'Error al confirmar tu cuenta',
+            mensaje:'Hubo un error al confirmar tu cuenta, intentalo de nuevo',
+            error:true
+        });
+    }
+    //Confirmar la cuenta
+    usuario.token=null;
+    usuario.confirmado=true;
+    await usuario.save();
+
+    res.render('auth/confirmar-cuenta',{
+            pagina:'Cuenta Confirmada',
+            mensaje:'La cuenta se confirmó correctamente'
+        });
+
+}
+
 export {
     formularioLogin,
     formularioRegistro,
     formularioOlvidePassword,
-    registrar
+    registrar,
+    confirmar
 }
