@@ -20,7 +20,8 @@ const crear=async(req,res)=>{
         pagina:'Crear Propiedad',
         barra:true,
         categorias,
-        precios
+        precios,
+        datos:{}
     });
 }
 
@@ -39,7 +40,8 @@ const guardar=async(req,res)=>{
         //csrfToken:req.csrfToken(),
         categorias,
         precios,
-        errores:'Todos los campos son obligatorios'
+        errores:'Todos los campos son obligatorios',
+        datos:req.body
     });
     }
 }
