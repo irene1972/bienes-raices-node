@@ -20,7 +20,7 @@ app.use(csrf({cookie:true}));
 //conexión a la bd
 try {
     await db.authenticate();
-    //crea la tabla en el caso de que no esté creada
+    //sb.sync crea la tabla en el caso de que no esté creada (necesaria para producción)
     db.sync();
     console.log('Conexión correcta a la bd');
 } catch (error) {
