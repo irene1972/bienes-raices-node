@@ -16,7 +16,7 @@
   \************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("{__webpack_require__.r(__webpack_exports__);\nalert('soy el mapa');\n\n//# sourceURL=webpack://bienesraices/./src/js/mapa.js?\n}");
+eval("{__webpack_require__.r(__webpack_exports__);\n(function() {\r\n    const lat = 42.7257088;\r\n    const lng = -6.6538099;\r\n    const mapa = L.map('mapa').setView([lat, lng ], 16);\r\n    \r\n\r\n    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\r\n        attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r\n    }).addTo(mapa);\r\n\r\n\r\n})()\n\n//# sourceURL=webpack://bienesraices/./src/js/mapa.js?\n}");
 
 /***/ })
 
