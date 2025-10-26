@@ -1,3 +1,4 @@
+import {validationResult} from 'express-validator';
 import Precio from '../models/Precio.js';
 import Categoria from '../models/Categoria.js';
 
@@ -23,7 +24,28 @@ const crear=async(req,res)=>{
     });
 }
 
+const guardar=async(req,res)=>{
+    //validación
+    const {titulo,descripcion,categoria,precio,habitaciones,estacionamiento,wc,lat}=req.body;
+    if(!titulo || !descripcion || !categoria || !precio || !habitaciones || !estacionamiento || !wc || !lat){
+        const [precios,categorias]=await Promise.all([
+            Precio.findAll(),
+            Categoria.findAll()
+        ]);
+
+        return res.render('propiedades/crear',{
+        pagina:'Crear Propiedad',
+        barra:true,
+        //csrfToken:req.csrfToken(),
+        categorias,
+        precios,
+        errores:'Todos los campos son obligatorios'
+    });
+    }
+}
+
 export {
     admin,
-    crear
+    crear,
+    guardar
 }

@@ -7,7 +7,7 @@ import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js';
 const formularioLogin=(req,res)=>{
     res.render('auth/login',{
         pagina:'Iniciar Sesión',
-        csrfToken:req.csrfToken()
+        //csrfToken:req.csrfToken()
     });
 }
 
@@ -16,7 +16,7 @@ const autenticar=async(req,res)=>{
     if(!email || !password){
         res.render('auth/login',{
             pagina:'Iniciar Sesión',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'Los dos campos son obligatorios'  ,
             email          
         });
@@ -26,7 +26,7 @@ const autenticar=async(req,res)=>{
     if(!usuario){
         res.render('auth/login',{
             pagina:'Iniciar Sesión',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'El usuario no existe'  ,
             email          
         });
@@ -35,7 +35,7 @@ const autenticar=async(req,res)=>{
     if(!usuario.confirmado){
         res.render('auth/login',{
             pagina:'Iniciar Sesión',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'Tu cuenta no ha sido confirmada'  ,
             email          
         });
@@ -44,7 +44,7 @@ const autenticar=async(req,res)=>{
     if(!usuario.verificarPassword(password)){
         res.render('auth/login',{
             pagina:'Iniciar Sesión',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'El password es incorrecto'  ,
             email          
         });
@@ -82,7 +82,7 @@ const resetPassword=async(req,res)=>{
     if(!email){
         res.render('auth/olvide-password',{
             pagina:'Recupera tu acceso a Bienes Raices',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'El campo email es obligatorio'
             //email:req.body.email
         });
@@ -95,7 +95,7 @@ const resetPassword=async(req,res)=>{
     if(!usuario){
         res.render('auth/olvide-password',{
             pagina:'Recupera tu acceso a Bienes Raices',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'El usuario no está registrado en nuestro sitio web'
         });
     }
@@ -146,7 +146,7 @@ const nuevoPassword=async(req,res)=>{
     if(!password || password.length<6){
         res.render('auth/reset-password',{
             pagina:'Restablece tu password',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: 'El password debe contener almenos 6 carácteres'
         });
     }
@@ -184,7 +184,7 @@ const registrar=async(req,res)=>{
     if(!resultado.isEmpty()){
         return res.render('auth/registro',{
             pagina:'Crear Cuenta',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: resultado.array(),
             usuario:{
                 nombre:req.body.nombre,
@@ -198,7 +198,7 @@ const registrar=async(req,res)=>{
     if(existeUsuario){
         return res.render('auth/registro',{
             pagina:'Crear Cuenta',
-            csrfToken:req.csrfToken(),
+            //csrfToken:req.csrfToken(),
             errores: [{msg:'El email ya está registrado'}],
             usuario:{
                 nombre:req.body.nombre,
