@@ -5,4 +5,5 @@
         npm run dev
     3. Para verificar que llegan los emails se usa:
         https://mailtrap.io/inboxes
-
+    4. Para generar las tablas de categorías y precios:
+        npm run db:importar
