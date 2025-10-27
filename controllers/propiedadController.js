@@ -26,8 +26,8 @@ const crear=async(req,res)=>{
 
 const guardar=async(req,res)=>{
     //validación
-    const {titulo,descripcion,categoria:categoriaId,precio:precioId,habitaciones,estacionamiento,wc,lat}=req.body;
-    if(!titulo || !descripcion || !categoria || !precio || !habitaciones || !estacionamiento || !wc || !lat){
+    const {titulo,descripcion,categoria:categoriaId,precio:precioId,habitaciones,estacionamiento,calle,wc,lat,lng}=req.body;
+    if(!titulo || !descripcion || !categoriaId || !precioId || !habitaciones || !estacionamiento || !wc || !lat){
         const [precios,categorias]=await Promise.all([
             Precio.findAll(),
             Categoria.findAll()
@@ -55,8 +55,12 @@ const guardar=async(req,res)=>{
             lat,
             lng,
             precioId,
-            categoriaId
+            categoriaId,
+            usuarioId:req.usuario.id,
+            imagen:''
         });
+        const {id}=propiedadGuardada;
+        res.redirect(`/propiedades/agregar-imagen/${id}`);
     } catch (error) {
         console.log(error);        
     }

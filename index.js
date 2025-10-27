@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended:true}));
 //************************************* */
 //HABILITAR PARA SEGURIDAD EN FORMULARIOS
 //habilitar cookie-parser
-//app.use(cookieParser());
+app.use(cookieParser());
 //habilitar csrf
 //app.use(csrf({cookie:true}));
 //************************************* */
