@@ -26,7 +26,7 @@ eval("{(function webpackUniversalModuleDefinition(root, factory) {\n\tif(true)\n
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dropzone */ \"./node_modules/dropzone/dist/dropzone.js\");\n\r\n\r\nalert('funciona!');\n\n//# sourceURL=webpack://bienesraices/./src/js/agregarImagen.js?\n}");
+eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dropzone */ \"./node_modules/dropzone/dist/dropzone.js\");\n\r\n\r\ndropzone__WEBPACK_IMPORTED_MODULE_0__.Dropzone.options.imagen={\r\n    dictDefaultMessage:'Sube tus imágenes aquí',\r\n    acceptedFiles:'.png,.jpg,.jpeg',\r\n    maxFilesize:5,   //5 megas\r\n    maxFiles:1,\r\n    paralleUploads:1,\r\n    autoProcessQueue:false,\r\n    addRemoveLinks:true,\r\n    dictRemoveFile:'Borrar Archivo',\r\n    dictMaxFilesExceeded:'El límite es 1 archivo'\r\n}\n\n//# sourceURL=webpack://bienesraices/./src/js/agregarImagen.js?\n}");
 
 /***/ })
 

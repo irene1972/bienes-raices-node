@@ -79,7 +79,8 @@ const agregarImagen=async(req,res)=>{
     if(usuarioId !== req.usuario.id) return res.redirect('/mis-propiedades');
 
     res.render('propiedades/agregar-imagen',{
-        pagina:'Agregar Imagen'
+        pagina:`Agregar Imagen: ${propiedad.titulo}`,
+        propiedad
     });
 }
 
