@@ -9,9 +9,9 @@
     "server": "nodemon index.js",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
-    "dev":"concurrently \"npm run css\" \"npm run js\"",
-    "db:importar":"node ./seed/seeder.js -i",
-    "db:eliminar":"node ./seed/seeder.js -e"
+    "dev": "concurrently \"npm run css\" \"npm run js\"",
+    "db:importar": "node ./seed/seeder.js -i",
+    "db:eliminar": "node ./seed/seeder.js -e"
   },
   "keywords": [
     "MVC",
@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.7",
     "csurf": "^1.11.0",
     "dotenv": "^17.2.3",
+    "dropzone": "^5.9.3",
     "express": "^5.1.0",
     "express-validator": "^7.3.0",
     "jsonwebtoken": "^9.0.2",
