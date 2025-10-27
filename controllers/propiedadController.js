@@ -84,9 +84,38 @@ const agregarImagen=async(req,res)=>{
     });
 }
 
+const almacenarImagen=async(req,res,next)=>{
+    const {id}=req.params;
+
+    //validar que la propiedad existe
+    const propiedad=await Propiedad.findByPk(id);
+    if(!propiedad) return res.redirect('/mis-propiedades');
+
+    //validar que la propiedad no esté publicada
+    const {publicado,usuarioId}=propiedad;
+    if(publicado) return res.redirect('/mis-propiedades');
+
+    //validar que la propiedad pertenece a quien visita esta página
+    if(usuarioId !== req.usuario.id) return res.redirect('/mis-propiedades');
+
+    try {
+        //almacenar la imagen y publicar propiedad
+        propiedad.imagen=req.file.filename;
+        propiedad.publicado=1;
+
+        await propiedad.save();
+
+        next();
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     admin,
     crear,
     guardar,
-    agregarImagen
+    agregarImagen,
+    almacenarImagen
 }
