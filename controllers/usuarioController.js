@@ -64,7 +64,7 @@ const autenticar=async(req,res)=>{
 const formularioRegistro=(req,res)=>{
     res.render('auth/registro',{
         pagina:'Crear cuenta',
-        csrfToken:req.csrfToken()
+        //csrfToken:req.csrfToken()
     });
 }
 
@@ -72,7 +72,7 @@ const formularioOlvidePassword=(req,res)=>{
     //validación
     res.render('auth/olvide-password',{
             pagina:'Recupera tu acceso a Bienes Raices',
-            csrfToken:req.csrfToken()
+            //csrfToken:req.csrfToken()
         });
 }
 
@@ -133,7 +133,7 @@ const comprobarToken=async(req,res)=>{
     //mostrar formulario para que pueda agregar un nuevo password
     return res.render('auth/reset-password',{
             pagina:'Restablece tu password',
-            csrfToken:req.csrfToken()
+            //csrfToken:req.csrfToken()
         });
 
 }
