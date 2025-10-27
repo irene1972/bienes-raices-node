@@ -7,7 +7,8 @@ import {
     agregarImagen,
     almacenarImagen,
     editar,
-    guardarCambios
+    guardarCambios,
+    eliminar
 } from '../controllers/propiedadController.js';
 import protegerRuta from '../middleware/protegerRuta.js';
 import upload from '../middleware/subirImagen.js';
@@ -26,7 +27,6 @@ router.post('/propiedades/agregar-imagen/:id',
     upload.single('imagen'),
     almacenarImagen
 );
-
 router.get('/propiedades/editar/:id',
     protegerRuta,
     editar
@@ -34,6 +34,10 @@ router.get('/propiedades/editar/:id',
 router.post('/propiedades/editar/:id',
     protegerRuta,
     guardarCambios
+);
+router.post('/propiedades/eliminar/:id',
+    protegerRuta,
+    eliminar
 );
 
 export default router;
