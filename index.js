@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import usuarioRoutes from './routes/usuarioRoutes.js';
 import propiedadRoutes from './routes/propiedadRoutes.js';
 import appRoutes from './routes/appRoutes.js';
+import apiRoutes from './routes/apiRoutes.js';
 import db from './config/db.js';
 
 const app=express();
@@ -40,6 +41,7 @@ app.use(express.static('public'));
 app.use('/', appRoutes);
 app.use('/auth', usuarioRoutes);
 app.use('/', propiedadRoutes);
+app.use('/api', apiRoutes);
 
 //Definir puerto y arrancar el servido
 const port=process.env.SERVER_PORT || 3000;
