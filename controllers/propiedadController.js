@@ -40,7 +40,8 @@ const crear=async(req,res)=>{
 const guardar=async(req,res)=>{
     //validación
     const {titulo,descripcion,categoria:categoriaId,precio:precioId,habitaciones,estacionamiento,calle,wc,lat,lng}=req.body;
-    if(!titulo || !descripcion || !categoriaId || !precioId || !habitaciones || !estacionamiento || !wc || !lat){
+   
+    if(!titulo || !descripcion || !categoriaId || !precioId || !habitaciones || !estacionamiento || !wc || !lat || !calle){
         const [precios,categorias]=await Promise.all([
             Precio.findAll(),
             Categoria.findAll()
@@ -55,6 +56,7 @@ const guardar=async(req,res)=>{
         datos:req.body
     });
     }
+    
     //crear un registro
     try {
         const propiedadGuardada=await Propiedad.create({
@@ -229,7 +231,7 @@ const mostrarPropiedad=async(req,res)=>{
     });
 
     if(!propiedad) return res.redirect('/404');
-
+    console.log(propiedad);
     res.render('propiedades/mostrar',{
         pagina:propiedad.titulo,
         propiedad
