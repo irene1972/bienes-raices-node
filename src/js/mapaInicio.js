@@ -6,9 +6,31 @@
 
     let markers=new L.FeatureGroup().addTo(mapa);
 
+    const categoriasSelect=document.querySelector('#categorias');
+    const preciosSelect=document.querySelector('#precios');
+
+    const filtros={
+        categoria:'',
+        precio:''
+    }
+
+    let propiedades=[];
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapa);
+
+    //filtrado de categorías y precios
+    categoriasSelect.addEventListener('change',e=>{
+        filtros.categoria = +e.target.value;
+        filtrarPropiedades();
+    });
+
+    preciosSelect.addEventListener('change',e=>{
+        filtros.precio = +e.target.value;
+        filtrarPropiedades();
+    });
+
 
     const obtenerPropiedades=()=>{
         try {
@@ -21,7 +43,8 @@
             })
                 .then(response=>response.json())
                 .then(data=>{
-                    mostrarPropiedades(data);
+                    propiedades=data;
+                    mostrarPropiedades(propiedades);
                 })
                 .catch(error=>console.log(error));
         } catch (error) {
@@ -32,6 +55,9 @@
     }
 
     const mostrarPropiedades=(propiedades)=>{
+        //limpiar los markers previos
+        markers.clearLayers();
+
         propiedades.forEach(propiedad=>{
             //agregar los pines
             const marker=new L.marker([propiedad?.lat,propiedad?.lng],{
@@ -48,6 +74,19 @@
 
             markers.addLayer(marker);
         });
+    }
+
+    const filtrarPropiedades=()=>{
+        const resultado=propiedades.filter(filtrarCategoria).filter(filtrarPrecio);
+        mostrarPropiedades(resultado);
+    }
+
+    const filtrarCategoria=propiedad=>{
+        return filtros.categoria ? propiedad.categoriaId === filtros.categoria : propiedad;
+    }
+
+    const filtrarPrecio=propiedad=>{
+        return filtros.precio ? propiedad.precioId === filtros.precio : propiedad;
     }
 
     obtenerPropiedades();
