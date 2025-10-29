@@ -9,6 +9,7 @@ import {
     editar,
     guardarCambios,
     eliminar,
+    cambiarEstado,
     mostrarPropiedad,
     enviarMensaje,
     verMensajes
@@ -43,6 +44,10 @@ router.post('/propiedades/eliminar/:id',
     protegerRuta,
     eliminar
 );
+
+router.put('/propiedades/:id',
+    protegerRuta,
+    cambiarEstado);
 
 //Area pública
 router.get('/propiedad/:id',
