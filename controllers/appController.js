@@ -43,8 +43,28 @@ const inicio=async(req,res)=>{
     
 }
 
-const categoria=(req,res)=>{
-    res.send('categoria...');
+const categoria=async(req,res)=>{
+    const {id}=req.params;
+
+    //comprobar que la categoría existe
+    const categoria=await Categoria.findByPk(id);
+    console.log(categoria);
+    if(!categoria) return res.redirect('/404');
+
+    //obtener las propiedades de la categoría
+    const propiedades=await Propiedad.findAll({
+        where:{
+            categoriaId:id
+        },
+        include:[
+            {model:Precio, as:'precio'}
+        ]
+    });
+
+    res.render('categoria',{
+        pagina:`${categoria.nombre}s en Venta`,
+        propiedades
+    });
 }
 
 const noEncontrado=(req,res)=>{
