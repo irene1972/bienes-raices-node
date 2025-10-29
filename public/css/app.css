@@ -566,6 +566,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .gap-5 {
   gap: 1.25rem;
 }
+.gap-3 {
+  gap: 0.75rem;
+}
 .space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -869,6 +872,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-indigo-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(129 140 248 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 640px) {
